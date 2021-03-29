@@ -1,3 +1,4 @@
+import { Role } from '@/types'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -5,24 +6,28 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loggedIn: false,
-    username: ''
+    role: null,
+    isPaid: false
   },
   mutations: {
-    SET_LOGGED_IN: (state, value) => {
-      state.loggedIn = value
+    SET_ROLE: (state, value) => {
+      state.role = value
     },
-    SET_USERNAME: (state, value) => {
-      state.username = value
+    SET_IS_PAID: (state, value) => {
+      state.isPaid = value
     }
   },
   actions: {
-    setLoggedIn ({ commit }, value) {
-      commit('SET_LOGGED_IN', value)
+    setRole ({ commit }, value: Role | null) {
+      if (value) {
+        localStorage.setItem('role', value.toString())
+      }
+      commit('SET_ROLE', value)
     },
-    setUsername ({ commit }, value) {
-      commit('SET_USERNAME', value)
+    setIsPaid ({ commit }, value: boolean) {
+      commit('SET_IS_PAID', value)
     }
+
   },
   modules: {
   }
